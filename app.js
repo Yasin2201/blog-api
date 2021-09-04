@@ -12,6 +12,11 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
+//passport.js 
+const passport = require("passport");
+const jwtStrategy = require("./strategies/jwt")
+passport.use(jwtStrategy);
+
 //routes
 var indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api-routes');

@@ -1,6 +1,8 @@
+require('dotenv').config()
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const { body, validationResult } = require('express-validator');
+const jwt = require("jsonwebtoken");
 
 // Handle User Sign-up
 exports.sign_up_post = [
@@ -47,3 +49,43 @@ exports.sign_up_post = [
         });
     }
 ];
+
+//Handle User sign-in 
+exports.sign_in_post = [
+
+    //validate and sanitize sign-in fields
+    body("username", "Username required").trim().isLength({ min: 1 }).escape(),
+    body("password", "Password required").trim().isLength({ min: 1 }).escape(),
+
+    (req, res, next) => {
+        let { username, password } = req.body;
+
+        User.findOne({ username: username }, (err, user) => {
+            if (err) { return next(err) }
+
+            if (!user) { res.status(401).json({ message: "User not found" }); }
+
+            bcrypt.compare(password, user.password, (err, result) => {
+                if (result) {
+                    // passwords match! log user in
+                    const opts = {}
+                    opts.expiresIn = 120;  //token expires in 2min
+                    const secret = process.env.SECRET_KEY
+                    const token = jwt.sign({ username }, secret, opts);
+                    return res.status(200).json({
+                        message: "Auth Passed",
+                        token
+                    });
+                } else {
+                    // passwords do not match!
+                    return res.status(401).json({
+                        message: "Incorrect Password"
+                    });
+                }
+            });
+        })
+    }
+]
+
+
+

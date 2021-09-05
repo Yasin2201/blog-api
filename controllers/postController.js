@@ -32,3 +32,20 @@ exports.new_post_post = [
         };
     }
 ];
+
+//Delete post
+exports.delete_post_post = function (req, res, next) {
+    Post.findById(req.params.id)
+        .exec(function deletePost(err, foundPost) {
+            if (err) {
+                return next(err)
+            } else {
+                Post.remove({ _id: req.params.id }, function (err) {
+                    if (err) { return next(err) }
+                    res.json({
+                        message: "Successfully Deleted Post",
+                    })
+                })
+            }
+        })
+}

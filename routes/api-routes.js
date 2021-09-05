@@ -16,13 +16,13 @@ router.get('/sign-out', user_controller.sign_out_get)
 //POST secured new-post route - /api/new-post
 router.post('/new-post',
     passport.authenticate('jwt', { session: false }),
-    post_controller.new_post_post
+    post_controller.new_post
 );
 
-//POST secured delete-post route - /api/delete-post/:id
+//DELETE secured delete-post route - /api/delete-post/:id
 router.delete('/delete-post/:id',
     passport.authenticate('jwt', { session: false }),
-    post_controller.delete_post_post
+    post_controller.delete_post
 );
 
 

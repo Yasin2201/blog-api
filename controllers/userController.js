@@ -3,7 +3,6 @@ const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const { body, validationResult } = require('express-validator');
 const jwt = require("jsonwebtoken");
-const { pass } = require('../strategies/jwt');
 
 // Handle User Sign-up
 exports.sign_up_post = [

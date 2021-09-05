@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const user_controller = require('../controllers/userController');
 const post_controller = require('../controllers/postController');
+const comment_controller = require('../controllers/commentController');
 
 //POST user Sign-Up form - /api/sign-up
 router.post('/sign-up', user_controller.sign_up_post)
@@ -36,6 +37,9 @@ router.put('/update-post/:id',
     passport.authenticate('jwt', { session: false }),
     post_controller.update_post
 );
+
+//POST comment - api/posts/:postid/comments
+router.post("/posts/:postid/comments", comment_controller.new_comment);
 
 
 module.exports = router

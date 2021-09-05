@@ -16,6 +16,9 @@ router.get('/sign-out', user_controller.sign_out_get)
 //GET all posts from db - /api/posts
 router.get('/posts', post_controller.get_all_posts)
 
+//GET a single post from db - /api/posts/:id
+router.get('/posts/:id', post_controller.get_single_post)
+
 //POST secured new-post route - /api/new-post
 router.post('/new-post',
     passport.authenticate('jwt', { session: false }),

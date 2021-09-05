@@ -10,6 +10,15 @@ exports.get_all_posts = function (req, res, next) {
         })
 }
 
+//GET a single post
+exports.get_single_post = function (req, res, next) {
+    Post.findById(req.params.id)
+        .exec(function (err, found_post) {
+            if (err) { return next(err) }
+            res.json({ found_post })
+        })
+}
+
 // Handle user new post
 exports.new_post = [
 

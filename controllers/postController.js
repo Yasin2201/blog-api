@@ -2,7 +2,7 @@ const Post = require('../models/post');
 const { body, validationResult } = require('express-validator');
 
 // Handle user new post
-exports.new_post_post = [
+exports.new_post = [
 
     body('author', 'Author Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
     body('title', 'Title Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
@@ -34,7 +34,7 @@ exports.new_post_post = [
 ];
 
 //Delete post
-exports.delete_post_post = function (req, res, next) {
+exports.delete_post = function (req, res, next) {
     Post.findById(req.params.id)
         .exec(function deletePost(err, foundPost) {
             if (err) {

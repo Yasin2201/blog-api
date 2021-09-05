@@ -3,6 +3,7 @@ const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const { body, validationResult } = require('express-validator');
 const jwt = require("jsonwebtoken");
+const { pass } = require('../strategies/jwt');
 
 // Handle User Sign-up
 exports.sign_up_post = [
@@ -60,6 +61,9 @@ exports.sign_in_post = [
     (req, res, next) => {
         let { username, password } = req.body;
 
+        //Errors from req if any
+        const errors = validationResult(req)
+
         User.findOne({ username: username }, (err, user) => {
             if (err) { return next(err) }
 
@@ -79,7 +83,8 @@ exports.sign_in_post = [
                 } else {
                     // passwords do not match!
                     return res.status(401).json({
-                        message: "Incorrect Password"
+                        message: "Incorrect Password",
+                        errors: errors.array()
                     });
                 }
             });
@@ -87,5 +92,8 @@ exports.sign_in_post = [
     }
 ]
 
-
-
+//Sign out user
+exports.sign_out_get = function (req, res) {
+    req.logout();
+    res.redirect('/');
+};

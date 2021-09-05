@@ -9,4 +9,7 @@ router.post('/sign-up', user_controller.sign_up_post)
 //POST user sign-in 
 router.post('/sign-in', user_controller.sign_in_post)
 
+//GET user logout
+router.get('/sign-out', user_controller.sign_out_get)
+
 module.exports = router

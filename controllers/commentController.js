@@ -31,3 +31,13 @@ exports.new_comment = [
         };
     }
 ];
+
+//Delete comment
+exports.delete_comment = function (req, res, next) {
+    Comment.findByIdAndRemove(req.params.commentid, function deleteComment(err) {
+        if (err) { return next(err) }
+        res.json({
+            message: "Successfully Deleted Comment",
+        });
+    });
+};

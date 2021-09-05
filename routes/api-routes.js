@@ -21,25 +21,31 @@ router.get('/posts', post_controller.get_all_posts)
 router.get('/posts/:id', post_controller.get_single_post)
 
 //POST secured new-post route - /api/new-post
-router.post('/new-post',
+router.post('/posts',
     passport.authenticate('jwt', { session: false }),
     post_controller.new_post
 );
 
 //DELETE secured delete-post route - /api/delete-post/:id
-router.delete('/delete-post/:id',
+router.delete('/posts/:id',
     passport.authenticate('jwt', { session: false }),
     post_controller.delete_post
 );
 
 //UPDATE secured update-post route - /api/update-post/:id
-router.put('/update-post/:id',
+router.put('/posts/:id',
     passport.authenticate('jwt', { session: false }),
     post_controller.update_post
 );
 
 //POST comment - api/posts/:postid/comments
 router.post("/posts/:postid/comments", comment_controller.new_comment);
+
+//DELETE secured delete-comment route - /api/delete-post/:postid/comments/:commentid
+router.delete('/posts/:postid/comments/:commentid',
+    passport.authenticate('jwt', { session: false }),
+    comment_controller.delete_comment
+);
 
 
 module.exports = router

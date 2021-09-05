@@ -38,6 +38,9 @@ router.put('/posts/:id',
     post_controller.update_post
 );
 
+//GET specific posts comments from db - /api/posts
+router.get("/posts/:postid/comments", comment_controller.get_posts_comments)
+
 //POST comment - api/posts/:postid/comments
 router.post("/posts/:postid/comments", comment_controller.new_comment);
 

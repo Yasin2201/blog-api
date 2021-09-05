@@ -1,6 +1,16 @@
 const Comment = require('../models/comment');
 const { body, validationResult } = require('express-validator');
 
+//GET all comments relating to specific post
+exports.get_posts_comments = function (req, res, next) {
+    Comment.find()
+        .exec(function (err, all_comments) {
+            let posts_comments = all_comments.filter(comment => comment.postID.toString() === req.params.postid)
+            if (err) { return next(err) }
+            res.json({ posts_comments })
+        })
+}
+
 // Create new comment
 exports.new_comment = [
 
@@ -31,7 +41,6 @@ exports.new_comment = [
         };
     }
 ];
-
 
 //Delete comment
 exports.delete_comment = function (req, res, next) {

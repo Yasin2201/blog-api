@@ -25,5 +25,11 @@ router.delete('/delete-post/:id',
     post_controller.delete_post
 );
 
+//UPDATE secured update-post route - /api/update-post/:id
+router.put('/update-post/:id',
+    passport.authenticate('jwt', { session: false }),
+    post_controller.update_post
+);
+
 
 module.exports = router

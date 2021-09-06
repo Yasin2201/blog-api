@@ -20,7 +20,8 @@ passport.use(jwtStrategy);
 
 //routes
 var indexRouter = require('./routes/index');
-const apiRouter = require('./routes/api-routes');
+const cmsRouter = require('./routes/cms-routes');
+const clientRouter = require('./routes/client-routes')
 
 var app = express();
 
@@ -36,7 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
+app.use('/cms', cmsRouter);
+app.use('/client', clientRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

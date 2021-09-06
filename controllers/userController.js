@@ -66,7 +66,8 @@ exports.sign_in_post = [
         User.findOne({ username: username }, (err, user) => {
             if (err) { return next(err) }
 
-            if (!user) { res.status(401).json({ message: "User not found" }); }
+            if (!user) { res.status(401).json({ message: "User not found", userAuth: false, }); }
+
             else {
                 bcrypt.compare(password, user.password, (err, result) => {
                     if (result) {
@@ -77,12 +78,14 @@ exports.sign_in_post = [
                         const token = jwt.sign({ username }, secret, opts);
                         return res.status(200).json({
                             message: "Auth Passed",
+                            userAuth: true,
                             token
                         });
                     } else {
                         // passwords do not match!
                         return res.status(401).json({
                             message: "Incorrect Password",
+                            userAuth: false,
                             errors: errors.array()
                         });
                     }

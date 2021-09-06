@@ -67,26 +67,27 @@ exports.sign_in_post = [
             if (err) { return next(err) }
 
             if (!user) { res.status(401).json({ message: "User not found" }); }
-
-            bcrypt.compare(password, user.password, (err, result) => {
-                if (result) {
-                    // passwords match! log user in
-                    const opts = {}
-                    opts.expiresIn = 120;  //token expires in 2min
-                    const secret = process.env.SECRET_KEY
-                    const token = jwt.sign({ username }, secret, opts);
-                    return res.status(200).json({
-                        message: "Auth Passed",
-                        token
-                    });
-                } else {
-                    // passwords do not match!
-                    return res.status(401).json({
-                        message: "Incorrect Password",
-                        errors: errors.array()
-                    });
-                }
-            });
+            else {
+                bcrypt.compare(password, user.password, (err, result) => {
+                    if (result) {
+                        // passwords match! log user in
+                        const opts = {}
+                        opts.expiresIn = 120;  //token expires in 2min
+                        const secret = process.env.SECRET_KEY
+                        const token = jwt.sign({ username }, secret, opts);
+                        return res.status(200).json({
+                            message: "Auth Passed",
+                            token
+                        });
+                    } else {
+                        // passwords do not match!
+                        return res.status(401).json({
+                            message: "Incorrect Password",
+                            errors: errors.array()
+                        });
+                    }
+                });
+            }
         })
     }
 ]

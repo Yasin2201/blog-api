@@ -32,8 +32,8 @@ router.get('/posts/:id',
     post_controller.get_single_post
 );
 
-//GET secured all comment for post from db - /cms/posts/:id
-router.get('/posts/:id/comments',
+//GET secured all comments for post from db - /cms/posts/:id
+router.get('/posts/:postid/comments',
     passport.authenticate('jwt', { session: false }),
     comment_controller.get_posts_comments
 );

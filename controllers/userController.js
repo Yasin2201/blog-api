@@ -72,10 +72,10 @@ exports.sign_in_post = [
                 bcrypt.compare(password, user.password, (err, result) => {
                     if (result) {
                         // passwords match! log user in
-                        const opts = {}
-                        opts.expiresIn = 120;  //token expires in 2min
+                        // const opts = {}
+                        // opts.expiresIn = 120;  //token expires in 2min
                         const secret = process.env.SECRET_KEY
-                        const token = jwt.sign({ username }, secret, opts);
+                        const token = jwt.sign({ username }, secret);
                         return res.status(200).json({
                             message: "Auth Passed",
                             userAuth: true,

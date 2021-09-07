@@ -26,6 +26,18 @@ router.post('/posts',
     post_controller.new_post
 );
 
+//GET secured single post from db - /cms/posts/:id
+router.get('/posts/:id',
+    passport.authenticate('jwt', { session: false }),
+    post_controller.get_single_post
+);
+
+//GET secured all comment for post from db - /cms/posts/:id
+router.get('/posts/:id/comments',
+    passport.authenticate('jwt', { session: false }),
+    comment_controller.get_posts_comments
+);
+
 //DELETE secured delete-post route - /cms/delete-post/:id
 router.delete('/posts/:id',
     passport.authenticate('jwt', { session: false }),

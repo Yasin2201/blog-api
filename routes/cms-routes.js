@@ -52,7 +52,6 @@ router.put('/posts/:id',
 
 //DELETE secured delete-comment route - /cms/delete-post/:postid/comments/:commentid
 router.delete('/posts/:postid/comments/:commentid',
-    passport.authenticate('jwt', { session: false }),
     comment_controller.delete_comment
 );
 

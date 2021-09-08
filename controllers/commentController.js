@@ -43,13 +43,18 @@ exports.new_comment = [
 ];
 
 //Delete comment
-exports.delete_comment = function async(req, res, next) {
+exports.delete_comment = async function (req, res, next) {
     try {
-        Comment.findByIdAndDelete(req.params.commentid, function deleteComment(err) {
-            if (err) { return next(err) }
-            res.json({ message: "Successfully Deleted Comment" });
-        });
+        const comment = await Comment.findByIdAndDelete(req.params.commentid);
+        if (!comment) {
+            return res
+                .status(404)
+                .json({ err: `comment with not found` });
+        }
+        res
+            .status(200)
+            .json({ msg: `comment deleted sucessfuly` });
     } catch (err) {
-        console.error(err)
+        next(err);
     }
 };

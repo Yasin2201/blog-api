@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const Comment = require('../models/comment');
 const { body, validationResult } = require('express-validator');
 
 //GET all posts
@@ -87,12 +88,15 @@ exports.update_post = [
     }
 ];
 
-//Delete post
+//Delete post and all comments linked to post
 exports.delete_post = function (req, res, next) {
     Post.findByIdAndRemove(req.params.id, function deletePost(err) {
         if (err) { return next(err) }
         res.json({
             message: "Successfully Deleted Post",
         });
+    });
+    Comment.deleteMany({ 'postID': req.params.id }, function (err) {
+        if (err) { return next(err) }
     });
 };

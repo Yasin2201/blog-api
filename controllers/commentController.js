@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator');
 //GET all comments relating to specific post
 exports.get_posts_comments = function (req, res, next) {
     Comment.find()
+        .sort({ date: -1 })
         .exec(function (err, all_comments) {
             let posts_comments = all_comments.filter(comment => comment.postID.toString() === req.params.postid)
             if (err) { return next(err) }

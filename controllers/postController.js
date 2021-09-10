@@ -5,6 +5,7 @@ const { body, validationResult } = require('express-validator');
 //GET all posts
 exports.get_all_posts = function (req, res, next) {
     Post.find()
+        .sort({ date: -1 })
         .exec(function (err, all_posts) {
             if (err) { return next(err) }
             res.json({ all_posts })

@@ -15,8 +15,8 @@ exports.get_posts_comments = function (req, res, next) {
 // Create new comment
 exports.new_comment = [
 
-    body('username', 'Username Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
-    body('text', 'Text Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
+    body('username', 'Username Must Not Be Empty').trim().isLength({ min: 1 }),
+    body('text', 'Text Must Not Be Empty').trim().isLength({ min: 1 }),
 
     (req, res, next) => {
         //Errors from req if any

@@ -24,9 +24,9 @@ exports.get_single_post = function (req, res, next) {
 // Handle user new post
 exports.new_post = [
 
-    body('author', 'Author Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
-    body('title', 'Title Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
-    body('text', 'Text Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
+    body('author', 'Author Must Not Be Empty').trim().isLength({ min: 1 }),
+    body('title', 'Title Must Not Be Empty').trim().isLength({ min: 1 }),
+    body('text', 'Text Must Not Be Empty').trim().isLength({ min: 1 }),
 
     (req, res, next) => {
         //Errors from req if any
@@ -56,9 +56,9 @@ exports.new_post = [
 //Update post
 exports.update_post = [
 
-    body('author', 'Author Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
-    body('title', 'Title Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
-    body('text', 'Text Must Not Be Empty').trim().isLength({ min: 1 }).escape(),
+    body('author', 'Author Must Not Be Empty').trim().isLength({ min: 1 }),
+    body('title', 'Title Must Not Be Empty').trim().isLength({ min: 1 }),
+    body('text', 'Text Must Not Be Empty').trim().isLength({ min: 1 }),
 
     (req, res, next) => {
         //Errors from req if any
